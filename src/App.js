@@ -10,6 +10,8 @@ const App = () => {
   
   const [searchState, setSearchState] = useState("");
   const { searchTerm } = searchState;
+
+  const [sortState, setSortState] = useState([]);
   
   const handleInputChange = e => {
     const { name, value} = e.target;
@@ -21,6 +23,19 @@ const App = () => {
     const findEmployee = employees.filter(employee => employee.name === searchTerm);
     setEmployees(findEmployee);
   };
+  
+  const handleSort = type => {
+    const types = {
+      name: 'name',
+      phone: 'phone',
+      email: 'email',
+    };
+    const sortProperty = types[type];
+    const sorted = [...employees].sort((a, b) => b[sortProperty] - a[sortProperty]);
+    console.log(sorted);
+    setEmployees(sorted);
+  };
+
   return (
     <Wrapper>
       <h1 className="title">Employee Directory</h1>
@@ -31,7 +46,7 @@ const App = () => {
             name="searchTerm"
             type="text"
             className="form-control"
-            placeholder="Search for employee by name"
+            placeholder="Search by full name"
             id="search"
             onChange={handleInputChange}
           />
@@ -42,10 +57,18 @@ const App = () => {
           </button>
         </div>
       </form>
+      <div >
+         <h6> sort by:</h6>
+    <select onChange={(e) => handleSort(e.target.value)}>
+   <option value="name">Name</option>
+   <option value="phone">Phone</option>
+   <option value="email">Email</option>
+ </select>
+      </div>
       <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Name</th>
+            <th scope="col" >Name </th>
             <th scope="col">Phone</th>
             <th scope="col">Email</th>
           </tr>
