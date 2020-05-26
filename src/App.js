@@ -32,10 +32,9 @@ const App = () => {
       email: "email",
     };
     const sortProperty = types[type];
- 
-    alert(sortProperty);
-    const sorted = [...employees].sort(
-      (a, b) => a[sortProperty] > b[sortProperty] ? 1 : -1
+
+    const sorted = [...employees].sort((a, b) =>
+      a[sortProperty] > b[sortProperty] ? 1 : -1
     );
     console.log(sorted);
     setEmployees(sorted);
